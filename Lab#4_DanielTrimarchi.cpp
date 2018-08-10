@@ -139,7 +139,7 @@ void cofactores(){
 
 
 void reversi(){
-char** juego;
+/*char** juego;
 //juego=createMatriz(8);
 juego[3][3]='A';
 juego[3][4] ='R';
@@ -148,7 +148,7 @@ juego[4][3] ='R';
  printMatrix(8,juego);
  freeMatrix(8,juego);
 
-
+*/
 }
 
 int** createMatrix(int n){
