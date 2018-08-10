@@ -102,6 +102,7 @@ void cofactores(){
 	}else{
 	cout<<"El valor es: -"<<matrix[cord][cord2]<<endl;
 	}	
+	
 	for(int i=0;i<size;i++){
 		int cont=0;
 		if(i%2==0){
@@ -115,7 +116,7 @@ void cofactores(){
 			cont=2;
 			cout<<"+ ";	
 			}else{	
-			matrix[i][j]=matrix[i][j]*-1;
+			matrix[i][j]=matrix[i][j]*+1;
 			cont=1;
 			cout<<"- ";
 			}
@@ -134,7 +135,7 @@ void cofactores(){
 	printMatrix(size,matrix);
 	cout<<"Los Ceros Representan los Valores Removidos."<<endl;
 	freeMatrix(size,matrix);	
-	}
+}
 
 
 void reversi(){
@@ -176,7 +177,9 @@ void freeMatrix(int  n, int** matrix){
 void printMatrix(int size,int** matrix){
 	for(int i = 0; i < size; i++){
 		for(int j = 0; j < size; j++){
+			if(matrix[i][j]!=0){
 			cout <<" "<<matrix[i][j];
+			}
 		}
 			cout << endl;
 	}
