@@ -11,6 +11,11 @@ using std::setw;
 
 
 using namespace std;
+char** createMatriz(int);
+//Funion para liberar la memoria asignada a una matriz nxn
+void freeMatrix(int, char**);
+//imprime una matriz en consola.
+void printMatrix(int,char**);
 void cofactores();
 int** createMatrix(int);
 void reversi();
@@ -22,7 +27,7 @@ int main(){
 		cout <<endl;
 		cout <<"		MENU PRINCIPAL"<<endl
 		     <<"1.Matriz de Cofactores "<<endl
-		     <<"2. "<<endl
+		     <<"2. No Lo hice"<<endl
 		     <<"3. Salir"<<endl
 		     <<"Escoja su respuesta: "<<endl;
 		cin>> resp;
@@ -69,12 +74,7 @@ void cofactores(){
 	int** matrix= createMatrix(size);		
 	
 	int cord,cord2;
-	do{
-	cout<<"Ingrese la posicion de i [0-(size-1) :";
-	cin>> cord;
-	cout<<"Ingrese la posicion de j [0-(size-1) :";
-		cin>> cord2;
-	}while(cord<0||cord2<0||cord2>=size||cord>=size);
+
 	for(int i=0;i<size;i++){
 		int cont=0;
 		if(i%2==0){
@@ -84,17 +84,46 @@ void cofactores(){
 		}	
 		for(int j=0;j<size;j++)	{
 			int num = rand() % 6 + 1;		
-			if(cont==1){
 			matrix[i][j]=num;
-			cont=2;	
-			}else{	
-			matrix[i][j]=num*-1;
+	
+	
+		}
+		}
+
+	printMatrix(size,matrix);	
+	do{
+	cout<<"Ingrese la posicion de i [0-(size-1) :";
+	cin>> cord;
+	cout<<"Ingrese la posicion de j [0-(size-1) :";
+		cin>> cord2;
+	}while(cord<0||cord2<0||cord2>=size||cord>=size);
+	if(cord%2==0&&cord2%2==0){
+	cout<<"El valor es:  +"<<matrix[cord][cord2]<<endl;
+	}else{
+	cout<<"El valor es: -"<<matrix[cord][cord2]<<endl;
+	}	
+	for(int i=0;i<size;i++){
+		int cont=0;
+		if(i%2==0){
 			cont=1;
+		}else{
+			cont=2;	
+		}	
+		for(int j=0;j<size;j++)	{		
+			if(cont==1){
+			matrix[i][j]=matrix[i][j];
+			cont=2;
+			cout<<"+ ";	
+			}else{	
+			matrix[i][j]=matrix[i][j]*-1;
+			cont=1;
+			cout<<"- ";
 			}
 			if(i==cord||j==cord2){
 			matrix[i][j]=0;
 			}	
-		}	
+		}
+		cout <<endl;	
 	
 	
 	}
@@ -103,11 +132,20 @@ void cofactores(){
 
 
 	printMatrix(size,matrix);
+	cout<<"Los Ceros Representan los Valores Removidos."<<endl;
 	freeMatrix(size,matrix);	
 	}
 
 
 void reversi(){
+char** juego;
+//juego=createMatriz(8);
+juego[3][3]='A';
+juego[3][4] ='R';
+juego[4][4]='A';
+juego[4][3] ='R';
+ printMatrix(8,juego);
+ freeMatrix(8,juego);
 
 
 }
@@ -117,6 +155,7 @@ int** createMatrix(int n){
 
 	for(int i = 0; i < n; i++){
 		retVal[i] = new int[n];
+
 	}
 	return retVal;
 }
@@ -143,5 +182,34 @@ void printMatrix(int size,int** matrix){
 	}
 
 }
+//Crear matriz
+char** createMatriz(int n){
+	char** retVal = new char*[n];
+
+	for(int i = 0; i < n; i++){
+		retVal[i] = new char[n];
+	}
+	return retVal;
+}
+
+//Liberar memoria
+void freeMatrix(int n, char** matrix){
+	for(int i = 0; i < n;i++){
+		delete[] matrix[i];
+	}
+	delete[] matrix;
+
+}	
+
+//imprimir una matriz
+void printMatrix(int size, char** matrix){
+	for(int i = 0; i < size; i++){
+		for(int j = 0; j < size; j++){
+			cout <<" "<<matrix[i][j];
+		}
+			cout << endl;
+	}
+}
+
 
 
